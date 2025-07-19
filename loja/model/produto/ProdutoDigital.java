@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class ProdutoDigital extends Produto {
     private int mb;
 
-    public ProdutoDigital(String nome, String codigo, int estoque, BigDecimal precoBase){
+    public ProdutoDigital(String nome, String codigo, int estoque, BigDecimal precoBase, int mb){
         super(nome, codigo, estoque, precoBase);
         this.mb = mb;
     }
