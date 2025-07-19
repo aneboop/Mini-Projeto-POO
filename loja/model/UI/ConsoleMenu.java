@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package loja.model.UI;
 import java.math.BigDecimal;
 import loja.model.cliente.Cliente;
@@ -51,3 +52,11 @@ public class ConsoleMenu {
     // TODOS OS METODOS DE ALTERAÇÃO E EXIBIÇÃO DE CLIENTES E PRODUTOS DEVEM VIR NESSA CLASSE
     
 }
+=======
+package loja.model.UI;
+import java.math.BigDecimal;
+
+public class ConsoleMenu {
+    
+}
+>>>>>>> dbfb1aaf8c651476815f8a66fb9bc9c1c72cd2be
