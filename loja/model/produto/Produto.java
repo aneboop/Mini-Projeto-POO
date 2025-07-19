@@ -42,5 +42,9 @@ public class Produto {
         this.estoque = estoque;
     }
 
+    public BigDecimal calcularPrecoVenda() {
+        return getPrecoBase();
+    }
+
     
 }
