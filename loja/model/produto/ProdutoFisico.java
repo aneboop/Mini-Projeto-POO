@@ -2,10 +2,10 @@ package loja.model.produto;
 import java.math.BigDecimal;
 
 public class ProdutoFisico extends Produto {
-    private int paginas; // Exemplo de atributo específico para produto físico
+    private int paginas; 
 
-    public ProdutoFisico(String nome, String codigo, int estoque, BigDecimal precoBase){
-        super(nome, codigo, estoque, precoBase);
+    public ProdutoFisico(String nome, String codigo, int estoque, BigDecimal precoBase, BigDecimal valorfrete, int paginas){
+        super(nome, codigo, estoque, precoBase, valorfrete);
         this.paginas = paginas;
     }
 
@@ -14,8 +14,7 @@ public class ProdutoFisico extends Produto {
     }
 
     public BigDecimal calcularPrecoVenda(){
-        // adicionar frete
-        return getPrecoBase();
+        return getPrecoBase().add(valorfrete);
     }
     
 }

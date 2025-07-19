@@ -7,13 +7,15 @@ public class Produto {
     private String codigo;
     private int estoque;
     private BigDecimal precoBase;
+    protected BigDecimal valorfrete;
 
     // construtor
-    public Produto(String nome, String codigo, int estoque, BigDecimal precoBase){
+    public Produto(String nome, String codigo, int estoque, BigDecimal precoBase, BigDecimal valorfrete){
         this.nome = nome;
         this.codigo = codigo;
         this.estoque = estoque;
         this.precoBase = precoBase;
+        this.valorfrete = valorfrete;
     }
 
     //getters
@@ -31,6 +33,10 @@ public class Produto {
 
     public int getEstoque() {
         return estoque;
+    }
+
+    public BigDecimal getvalorfrete(){
+        return valorfrete;
     }
 
     //setters
