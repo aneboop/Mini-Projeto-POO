@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package loja.model.UI;
 import java.math.BigDecimal;
 import loja.model.cliente.Cliente;
@@ -23,13 +23,14 @@ public class ConsoleMenu {
         System.out.println("0. Sair");
         System.out.print("Escolha uma opção: ");
     }
-
+    //OPCAO 1
     public static Produto cadastrarProduto(){
         System.out.println("\n------ CADASTRO ------");
         String nome = InputUtils.getStringInput("Nome do produto: ");
         String codigo = InputUtils.getStringInput("Codigo: ");
         int estoque = InputUtils.getInput("Estoque inicial: ");
         BigDecimal precoBase = InputUtils.getBigDecimalInput("Preço base: ");
+       
 
         System.out.println("Tipo de Produto:");
         System.out.println("1. Produto Físico");
@@ -52,11 +53,3 @@ public class ConsoleMenu {
     // TODOS OS METODOS DE ALTERAÇÃO E EXIBIÇÃO DE CLIENTES E PRODUTOS DEVEM VIR NESSA CLASSE
     
 }
-=======
-package loja.model.UI;
-import java.math.BigDecimal;
-
-public class ConsoleMenu {
-    
-}
->>>>>>> dbfb1aaf8c651476815f8a66fb9bc9c1c72cd2be
