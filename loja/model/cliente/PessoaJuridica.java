@@ -11,6 +11,10 @@ public class PessoaJuridica extends Cliente {
     public String getCnpj() {
         return cnpj;
     }
+
+    public String exibirDetalhes(){
+        return "\nCNPJ: " + this.getCnpj();
+    }
 }
 
     

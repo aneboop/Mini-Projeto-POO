@@ -3,9 +3,11 @@ import java.math.BigDecimal;
 
 public class ProdutoFisico extends Produto {
     private int paginas; 
+    private BigDecimal valorfrete;
 
     public ProdutoFisico(String nome, String codigo, int estoque, BigDecimal precoBase, BigDecimal valorfrete, int paginas){
-        super(nome, codigo, estoque, precoBase, valorfrete);
+        super(nome, codigo, estoque, precoBase);
+        this.valorfrete = valorfrete;
         this.paginas = paginas;
     }
 
@@ -15,6 +17,14 @@ public class ProdutoFisico extends Produto {
 
     public BigDecimal calcularPrecoVenda(){
         return getPrecoBase().add(valorfrete);
+    }
+
+    public BigDecimal getvalorfrete(){
+        return valorfrete;
+    }
+
+    public String exibirdetalhes() {
+        return " \nTipo: Físico \nPáginas: " + this.getPaginas() + " \nValor Frete: " + this.getvalorfrete();
     }
     
 }
