@@ -27,7 +27,7 @@ public class ConsoleMenu {
     public static Produto cadastrarProduto(Produto[]produtos, int numProdutos){
         // Cadastro dinamio
         if(numProdutos == produtos.length){
-            Produto[] aux = new Produto[numProdutos =10];
+            Produto[] aux = new Produto[numProdutos+10];
             for (int i = 0; i < produtos.length ; i++)
               aux[i]= produtos[i];
               produtos = aux;
@@ -115,7 +115,7 @@ public class ConsoleMenu {
 
         // Cadastro dinamio
         if(numClientes == clientes.length){
-            Cliente[] aux = new Cliente[numClientes =10];
+            Cliente[] aux = new Cliente[numClientes+10];
             for (int i = 0; i < clientes.length ; i++)
               aux[i]= clientes[i];
             clientes = aux;
@@ -206,6 +206,14 @@ public class ConsoleMenu {
     
     //OPCAO 5 
     public static void criarNota(Nota [] notas,int numNotas, Cliente[] clientes, int numClientes,Produto[]produtos, int numProdutos ){
+
+        if(numNotas == notas.length){
+            Nota[] aux = new Nota[numNotas+10];
+            for (int i = 0; i < notas.length ; i++)
+              aux[i]= notas[i];
+            notas = aux;
+        }
+        
         System.out.println("\n------ CRIACAO DE NOTA ------");
         System.out.println("Escolha o cliente"); 
 
