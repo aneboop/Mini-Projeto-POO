@@ -53,5 +53,15 @@ public class Produto {
         return "";
     }
 
+   public static int pesquisarProduto(Produto[] produtos, int numProdutos, String codigo){
+    for(int i = 0; i < numProdutos; i++){
+        if (produtos[i].codigo.equals(codigo)){
+            return i;
+        }
+    }
+    return -1;
+}
+
+
     
 }
