@@ -204,8 +204,56 @@ public class ConsoleMenu {
         }
     }
     
-    //OPCAO 5 -> na classe Nota ou diretamente na classe Main, caso seja na classe Main, fica fora do "public static void"
+    //OPCAO 5 
+    public static void criarNota(Nota [] notas,int numNotas, Cliente[] clientes, int numClientes,Produto[]produtos, int numProdutos ){
+        System.out.println("\n------ CRIACAO DE NOTA ------");
+        System.out.println("Escolha o cliente"); 
 
+         //Encontrar indice do cliente
+         String identificadorCliente;
+         int index_cliente;
+         do{
+          identificadorCliente = InputUtils.getStringInput("Codigo: ");
+          index_cliente = Cliente.pesquisarCliente(clientes, numClientes, identificadorCliente);
+          if(index_cliente == -1)
+           System.out.println("Codigo invalido"); 
+         }while(index_cliente == -1);
+
+         //Criando a nota  
+         String ID =  String.valueOf(numNotas);
+         Nota novNota = new Nota(ID, clientes[index_cliente]);
+         notas[numNotas] = novNota;
+         numNotas++;
+
+         //Adicionar os produtos
+         String codigoProduto;
+         int index_produto;
+         int quantidadeProduto;
+         int opcao;
+         do{
+         System.out.println("1 Para adicionar um produto "); 
+         System.out.println("2 Para concluir a compra "); 
+         opcao = InputUtils.getInput("Escolha uma opcao ");
+
+         if(opcao == 1){
+         //Achar indice do produto na lista
+         do{
+          codigoProduto = InputUtils.getStringInput("Codigo: ");
+          index_produto = Produto.pesquisarProduto(produtos, numProdutos,codigoProduto);
+          if(index_produto == -1)
+           System.out.println("Codigo invalido"); 
+         }while(index_produto == -1);
+         quantidadeProduto = InputUtils.getInput("Codigo: ");
+         novNota.adicionarItem(produtos[index_produto], quantidadeProduto);
+         }
+         if(opcao!=1 && opcao !=2){
+            System.out.println("Opcao invalida, selecione 1 ou 2"); 
+         }
+        }while(opcao != 2);
+
+        novNota.exibirResumo();
+
+    }
 
     //OPCAO 6
     public static void listarNotas(Nota[] notas, int numNotas){
