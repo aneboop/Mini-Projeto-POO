@@ -4,6 +4,10 @@ import loja.model.UI.InputUtils;
 import loja.model.cliente.Cliente;
 import loja.model.nota.Nota;
 import loja.model.produto.Produto;
+import loja.model.UI.InputUtils;
+import loja.model.cliente.Cliente;
+import loja.model.nota.Nota;
+import loja.model.produto.Produto;
 
 public class Main {
     public static void main(String[] args){
