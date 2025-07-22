@@ -27,7 +27,7 @@ public class ConsoleMenu {
     public static Produto cadastrarProduto(Produto[]produtos, int numProdutos){
         // Cadastro dinamio
         if(numProdutos == produtos.length){
-            Produto[] aux = new Produto[numProdutos =10];
+            Produto[] aux = new Produto[numProdutos+10];
             for (int i = 0; i < produtos.length ; i++)
               aux[i]= produtos[i];
               produtos = aux;
@@ -44,39 +44,41 @@ public class ConsoleMenu {
         int flag = 0;
         String entradaCodigo;
         do{
-         entradaCodigo = nome = InputUtils.getStringInput("Codigo: ");
+            flag= 0;
+         entradaCodigo = InputUtils.getStringInput("Codigo: ");
          if (entradaCodigo==null || entradaCodigo.length() != 5){
           System.out.println("O codigo deve ter exatamente 5 caracteres");
          }else flag++;
 
-         if(Produto.pesquisarProduto(produtos,numProdutos, entradaCodigo) < 0){
+         if(Produto.pesquisarProduto(produtos,numProdutos, entradaCodigo) >= 0){
           System.out.println("Codigo ja existente, cadastre um codigo diferente");
          }else flag++;
         }while(flag != 2);
         codigo = entradaCodigo;
 
+        int tipoProduto;
+        do{
         System.out.println("Tipo de Produto:");
         System.out.println("1. Produto Físico");
         System.out.println("2. Produto Digital");
-        int tipoProduto = InputUtils.getInput("Escolha o tipo de produto: ");
+        tipoProduto = InputUtils.getInput("Escolha o tipo de produto: ");
 
         if (tipoProduto == 1) {
             BigDecimal valorFrete = InputUtils.getBigDecimalInput("Valor do frete: ");
             int paginas = InputUtils.getInput("Número de páginas (para produtos físicos): ");
             novProduto = new ProdutoFisico(nome, codigo, estoque, precoBase, valorFrete, paginas);
             produtos[numProdutos] = novProduto;
-            numProdutos++;
             return novProduto;
         } else if (tipoProduto == 2) {
             int mb = InputUtils.getInput("Tamanho em MB: ");
             novProduto = new ProdutoDigital(nome, codigo, estoque, precoBase, mb);
             produtos[numProdutos] = novProduto;
-            numProdutos++;
             return novProduto;
         } else {
             System.out.println("Tipo de produto inválido.");
-            return null;
         }
+        }while (tipoProduto!=1 || tipoProduto!=2);
+    return null;
     }
     //OPCAO 2
     public static void alterarProduto(Produto[]produtos, int numProdutos){
@@ -115,7 +117,7 @@ public class ConsoleMenu {
 
         // Cadastro dinamio
         if(numClientes == clientes.length){
-            Cliente[] aux = new Cliente[numClientes =10];
+            Cliente[] aux = new Cliente[numClientes+10];
             for (int i = 0; i < clientes.length ; i++)
               aux[i]= clientes[i];
             clientes = aux;
@@ -130,32 +132,36 @@ public class ConsoleMenu {
         String digitoIdentificador;
         String identificadorFinal;
 
-
+        //selecionando o codigo
         int flag = 0;
         do{
-         entradaIdentificador = nome = InputUtils.getStringInput("Codigo: ");
+            flag=0;
+         entradaIdentificador = InputUtils.getStringInput("Codigo: ");
          if (entradaIdentificador==null || entradaIdentificador.length() != 3){
-          System.out.println("O codigo deve ter exatamente 5 caracteres");
+          System.out.println("O codigo deve ter exatamente 3 caracteres");
          }else flag++;
 
-         if(Cliente.pesquisarCliente(clientes, numClientes, entradaIdentificador) < 0){
+         if(Cliente.pesquisarCliente(clientes, numClientes, entradaIdentificador) >= 0){
           System.out.println("Codigo ja existente, cadastre um codigo diferente");
          }else flag++;
         }while(flag != 2);
         String identificadorBase = entradaIdentificador;
 
+        //selecionando tipo
+        int tipoCliente;
+        do{
         System.out.println("Tipo de Cliente:");
         System.out.println("1. Pessoa Física");
         System.out.println("2. Pessoa Juridica");
-        int tipoCliente = InputUtils.getInput("Escolha uma opcao: ");
+        tipoCliente = InputUtils.getInput("Escolha uma opcao: ");
 
         if(tipoCliente == 1){
             digitoIdentificador = "01-";
             identificadorFinal = digitoIdentificador+identificadorBase;
+            System.out.println("ID Final: " + identificadorFinal);
             String CPF = InputUtils.getStringInput("CPF: ");
             novocliente = new PessoaFisica(identificadorFinal, nome, endereco, telefone, CPF);
             clientes[numClientes] = novocliente;
-            numClientes++;
             return novocliente;
         } else if (tipoCliente == 2) {
             digitoIdentificador = "02-";
@@ -163,14 +169,12 @@ public class ConsoleMenu {
             String CNPJ = InputUtils.getStringInput("CNPJ: ");
             novocliente = new PessoaJuridica(identificadorFinal, nome, endereco, telefone, CNPJ);
             clientes[numClientes] = novocliente;
-            numClientes++;
             return novocliente;
         }else {
             System.out.println("Tipo de produto inválido.");
-            return null;
         }
-
-
+        }while(tipoCliente!=1 ||  tipoCliente!=2);
+        return null;
     }
     //OPCAO 4
     public static void alterarCliente(Cliente[] clientes, int numClientes){
@@ -197,15 +201,73 @@ public class ConsoleMenu {
             clientes[index].setTelefone(telefone);
          }else if(tipoAlteracao == 2){
             String endereco = InputUtils.getStringInput("Novo endereco base: ");
-            clientes[index].setTelefone(endereco);
+            clientes[index].setEndereco(endereco);
          }else {
             System.out.println("Opcao inválida.");
             
         }
     }
     
-    //OPCAO 5 -> na classe Nota ou diretamente na classe Main, caso seja na classe Main, fica fora do "public static void"
+    //OPCAO 5
+    public static Nota criarNota(Nota[] notas,int numNotas, Cliente[] clientes, int numClientes,Produto[]produtos, int numProdutos ){
 
+        // Cadastro dinamio
+        if(numNotas == notas.length){
+            Nota[] aux = new Nota[numNotas+10];
+            for (int i = 0; i < notas.length ; i++)
+              aux[i]= notas[i];
+            notas = aux;
+        }
+
+        System.out.println("\n------ CRIACAO DE NOTA ------");
+        System.out.println("Escolha o cliente"); 
+
+         //Encontrar indice do cliente
+         String identificadorCliente;
+         int index_cliente;
+         do{
+          identificadorCliente = InputUtils.getStringInput("Codigo: ");
+          index_cliente = Cliente.pesquisarCliente(clientes, numClientes, identificadorCliente);
+          if(index_cliente == -1)
+           System.out.println("Codigo invalido\n"); 
+         }while(index_cliente == -1);
+
+         //Criando a nota  
+         String ID =  String.valueOf(numNotas);
+         Nota novNota = new Nota(ID, clientes[index_cliente]);
+         notas[numNotas] = novNota;
+
+         //Adicionar os produtos
+         String codigoProduto;
+         int index_produto;
+         int quantidadeProduto;
+         int opcao;
+         do{
+         System.out.println("1 Para adicionar um produto "); 
+         System.out.println("2 Para concluir a compra "); 
+         opcao = InputUtils.getInput("Escolha uma opcao ");
+
+         if(opcao == 1){
+         //Achar indice do produto na lista
+         do{
+          codigoProduto = InputUtils.getStringInput("Codigo: ");
+          index_produto = Produto.pesquisarProduto(produtos, numProdutos,codigoProduto);
+          if(index_produto == -1)
+           System.out.println("Codigo invalido\n"); 
+         }while(index_produto == -1);
+         quantidadeProduto = InputUtils.getInput("Quantidade do produto: ");
+        if(novNota.adicionarItem(produtos[index_produto], quantidadeProduto)!=null)
+            System.out.println("Produto adicionado com sucesso"); 
+         }
+         if(opcao!=1 && opcao !=2){
+            System.out.println("Opcao invalida, selecione 1 ou 2\n"); 
+         }
+        }while(opcao != 2);
+        novNota.exibirResumo();
+        notas[numNotas]=novNota;
+        return novNota;
+
+    }
 
     //OPCAO 6
     public static void listarNotas(Nota[] notas, int numNotas){
@@ -221,7 +283,7 @@ public class ConsoleMenu {
 
     //OPCAO 7
     public static void listarProdutos(Produto[]produtos, int numProdutos){
-        System.out.println("\n--- Clientes cadastrados ---");
+        System.out.println("\n--- Produtos cadastrados ---");
         if(numProdutos == 0){
                 System.out.println("Nenhuma produto cadastrado!");
                 return;
@@ -234,6 +296,8 @@ public class ConsoleMenu {
                 System.out.println("Estoque: " + produto.getEstoque());
                     String detalhesProdutos = produto.exibirDetalhes();
                     System.out.print(detalhesProdutos);
+                System.out.println("\n-----------------------------");    
+                   
 
 
             }
@@ -254,6 +318,7 @@ public class ConsoleMenu {
                 System.out.println("Telefone: " + cliente.getTelefone());
                     String detalhesClientes = cliente.exibirDetalhes();
                     System.out.print(detalhesClientes);
+                System.out.println("\n-----------------------------");      
 
 
             }

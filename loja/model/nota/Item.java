@@ -23,7 +23,7 @@ public class Item {
     }
 
     public BigDecimal getSubtotalItem(){
-        return subtotalItem;
+        BigDecimal valorfrete = produto.calcularPrecoVenda().subtract(produto.getPrecoBase());
+        return this.subtotalItem.add(valorfrete);
     }
-    
 }

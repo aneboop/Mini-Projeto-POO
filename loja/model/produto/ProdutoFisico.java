@@ -15,16 +15,15 @@ public class ProdutoFisico extends Produto {
         return paginas;
     }
 
-    public BigDecimal calcularPrecoVenda(){
-        return getPrecoBase().add(valorfrete);
-    }
-
     public BigDecimal getvalorfrete(){
         return valorfrete;
     }
 
-    public String exibirdetalhes() {
-        return " \nTipo: Físico \nPáginas: " + this.getPaginas() + " \nValor Frete: " + this.getvalorfrete();
+    public BigDecimal calcularPrecoVenda() {
+        return this.getPrecoBase().add(this.valorfrete);
+    }
+    public String exibirDetalhes() {
+        return " Tipo: Físico \nPáginas: " + this.getPaginas() + " \nValor Frete: " + this.getvalorfrete();
     }
     
 }

@@ -20,7 +20,7 @@ public class ProdutoDigital extends Produto {
     }
 
     public String exibirDetalhes() {
-        return "  Tipo: Digital \nMB: " + this.getmb();
+        return "Tipo: Digital \nMB: " + this.getmb();
     }
     
 }

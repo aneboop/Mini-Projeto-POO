@@ -26,20 +26,22 @@ public class Nota {
         this.valorTotal = BigDecimal.ZERO;
     }
 
-    public void adicionarItem(Produto produto, int quantidade) {
+    public Item adicionarItem(Produto produto, int quantidade) {
         if (numItens >= max) {
             System.out.println("Erro: Limite máximo de itens na nota atingido (" + max + ").");
-            return;
+            return null;
         }
 
         if (produto.getEstoque() >= quantidade) {
+            produto.setEstoque(produto.getEstoque()-quantidade);
             Item item = new Item(produto, quantidade);
             this.itens[numItens] = item; 
             this.numItens++;
             this.valorTotal = this.valorTotal.add(item.getSubtotalItem());
-            produto.setEstoque(produto.getEstoque() - quantidade);
+            return item;
         } else {
             System.out.println("Erro: Quantidade solicitada de " + produto.getNome() + " excede o estoque disponível (" + produto.getEstoque() + ").");
+            return null;
         }
     }
 
@@ -81,9 +83,13 @@ public class Nota {
         System.out.println("Cliente: " + cliente.getNome() + " (ID: " + cliente.getIdentificador() + ")");
         System.out.println("Itens:");
         for (int i = 0; i < numItens; i++) { 
-            System.out.println(itens[i]);
+           
+            System.out.print("Prduto:"    +itens[i].getProduto().getNome() );
+            System.out.print("  Preço unitario:"    +itens[i].getProduto().calcularPrecoVenda() );
+            System.out.print("  Quantidade:" +itens[i].getQuantidade());
+            System.out.print("  Subtotal:"   +itens[i].getSubtotalItem());
         }
-        System.out.println("----------------------");
+        System.out.println("\n----------------------");
         System.out.println("Valor Total: " + valorTotal);
         System.out.println("----------------------");
     }
