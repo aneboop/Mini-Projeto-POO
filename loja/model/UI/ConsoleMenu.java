@@ -302,46 +302,58 @@ public class ConsoleMenu {
 
     //OPCAO 7
     public static void listarProdutos(Produto[]produtos, int numProdutos){
-        System.out.println("\n--- Produtos cadastrados ---");
-        if(numProdutos == 0){
-                System.out.println("Nenhuma produto cadastrado!");
-                return;
-            }
-            for(int i = 0; i < numProdutos; i++){
-                Produto produto = produtos[i];
-                System.out.println("Codigo: " + produto.getCodigo());
-                System.out.println("Nome: " + produto.getNome());
-                System.out.println("Preço Base: " + produto.getPrecoBase());
-                System.out.println("Estoque: " + produto.getEstoque());
-                    String detalhesProdutos = produto.exibirDetalhes();
-                    System.out.print(detalhesProdutos);
-                System.out.println("\n-----------------------------");    
-                   
-
-
-            }
-        }
+      System.out.println("\n--- Produtos cadastrados ---");
+      if(numProdutos == 0){
+       System.out.println("Nenhuma produto cadastrado!");
+       return;
+      }
+      for(int i = 0; i < numProdutos; i++){
+       // Upcasting implícito
+       Produto produto = produtos[i];
+       System.out.println("Codigo: " + produto.getCodigo());
+       System.out.println("Nome: " + produto.getNome());
+       System.out.println("Preço Base: " + produto.getPrecoBase());
+       System.out.println("Estoque: " + produto.getEstoque());
+       // Downcasting para acessar métodos específicos
+       if(produto instanceof ProdutoFisico) {
+        ProdutoFisico pf = (ProdutoFisico) produto;
+        System.out.println("Tipo: Físico");
+        System.out.println("Páginas: " + pf.getPaginas());
+        System.out.println("Frete: " + pf.getvalorfrete());
+       } else if(produto instanceof ProdutoDigital) {
+        ProdutoDigital pd = (ProdutoDigital) produto;
+        System.out.println("Tipo: Digital");
+        System.out.println("Tamanho (MB): " + pd.getmb());
+       }
+       System.out.println("-----------------------------");
+     }
+    }
 
     //OPCAO 8
     public static void listarClientes(Cliente[]clientes, int numClientes){
-        System.out.println("\n--- Clientes cadastrados ---");
-        if(numClientes == 0){
-                System.out.println("Nenhum cliente cadastrado!");
-                return;
-            }
-            for(int i = 0; i < numClientes; i++){
-                Cliente cliente = clientes[i];
-                System.out.println("ID: " + cliente.getIdentificador());
-                System.out.println("Nome: " + cliente.getNome());
-                System.out.println("Endereço: " + cliente.getEndereco());
-                System.out.println("Telefone: " + cliente.getTelefone());
-                    String detalhesClientes = cliente.exibirDetalhes();
-                    System.out.print(detalhesClientes);
-                System.out.println("\n-----------------------------");      
-
-
-            }
-    }
+       System.out.println("\n--- Clientes cadastrados ---");
+       if(numClientes == 0){
+        System.out.println("Nenhum cliente cadastrado!");
+        return;
+       }
+       for(int i = 0; i < numClientes; i++){
+        // Upcasting implícito (já que Cliente é a classe base)
+        Cliente cliente = clientes[i];
+        System.out.println("ID: " + cliente.getIdentificador());
+        System.out.println("Nome: " + cliente.getNome());
+        System.out.println("Endereço: " + cliente.getEndereco());
+        System.out.println("Telefone: " + cliente.getTelefone());
+        // Downcasting para acessar métodos específicos
+        if(cliente instanceof PessoaFisica) {
+         PessoaFisica pf = (PessoaFisica) cliente; // Downcasting explícito
+         System.out.println("CPF: " + pf.getCpf());
+        } else if(cliente instanceof PessoaJuridica) {
+         PessoaJuridica pj = (PessoaJuridica) cliente; // Downcasting explícito
+         System.out.println("CNPJ: " + pj.getCnpj());
+        }
+        System.out.println("-----------------------------");
+        }
+       }
     
     // BuscarClientes() e BuscarProdutos() para criar a nota no main
 }

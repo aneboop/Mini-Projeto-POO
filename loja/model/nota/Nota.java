@@ -81,11 +81,11 @@ public class Nota {
         System.out.println("ID da Nota: " + idNota);
         System.out.println("Data: " + dataEmissao.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
         System.out.println("Cliente: " + cliente.getNome() + " (ID: " + cliente.getIdentificador() + ")");
-        System.out.println("Itens:");
+        System.out.print("Itens:");
         for (int i = 0; i < numItens; i++) { 
            
-            System.out.print("Prduto:"    +itens[i].getProduto().getNome() );
-            System.out.print("  Preço unitario:"    +itens[i].getProduto().calcularPrecoVenda() );
+            System.out.print("\nProduto:"    +itens[i].getProduto().getNome() );
+            System.out.print("  Preço unitario:"    +itens[i].getProduto().getPrecoBase() );
             System.out.print("  Quantidade:" +itens[i].getQuantidade());
             System.out.print("  Subtotal:"   +itens[i].getSubtotalItem());
         }

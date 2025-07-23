@@ -11,7 +11,7 @@ public class Item {
     public Item(Produto produto, int quantidade) {
         this.produto = produto;
         this.quantidade = quantidade;
-        this.subtotalItem = produto.calcularPrecoVenda().multiply(new BigDecimal(quantidade));
+        this.subtotalItem = produto.getPrecoBase().multiply(new BigDecimal(quantidade));
     }
 
     public Produto getProduto() {
