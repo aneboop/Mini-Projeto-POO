@@ -28,7 +28,6 @@ public class ConsoleMenu {
         // Cadastro dinamio
         if(numProdutos == produtos.length){
             Produto[] aux = new Produto[numProdutos+10];
-            Produto[] aux = new Produto[numProdutos+10];
             for (int i = 0; i < produtos.length ; i++)
               aux[i]= produtos[i];
               produtos = aux;
@@ -38,7 +37,6 @@ public class ConsoleMenu {
         String nome = InputUtils.getStringInput("Nome do produto: ");
         int estoque = InputUtils.getInput("Estoque inicial: ");
         BigDecimal precoBase = InputUtils.getBigDecimalInput("Preço base: ");
-        Produto novProduto;
         String codigo;
         
         //Garatindo codigo formatado e unico 
@@ -58,6 +56,9 @@ public class ConsoleMenu {
         codigo = entradaCodigo;
 
         int tipoProduto;
+        int paginas = 0;
+        BigDecimal valorFrete = BigDecimal.ZERO;
+        int mb = 0;
         do{
         System.out.println("Tipo de Produto:");
         System.out.println("1. Produto Físico");
@@ -65,21 +66,29 @@ public class ConsoleMenu {
         tipoProduto = InputUtils.getInput("Escolha o tipo de produto: ");
 
         if (tipoProduto == 1) {
-            BigDecimal valorFrete = InputUtils.getBigDecimalInput("Valor do frete: ");
-            int paginas = InputUtils.getInput("Número de páginas (para produtos físicos): ");
-            novProduto = new ProdutoFisico(nome, codigo, estoque, precoBase, valorFrete, paginas);
-            produtos[numProdutos] = novProduto;
-            return novProduto;
+            valorFrete = InputUtils.getBigDecimalInput("Valor do frete: ");
+            paginas = InputUtils.getInput("Número de páginas (para produtos físicos): ");
         } else if (tipoProduto == 2) {
-            int mb = InputUtils.getInput("Tamanho em MB: ");
-            novProduto = new ProdutoDigital(nome, codigo, estoque, precoBase, mb);
-            produtos[numProdutos] = novProduto;
-            return novProduto;
+            mb = InputUtils.getInput("Tamanho em MB: ");
         } else {
             System.out.println("Tipo de produto inválido.");
         }
-        }while (tipoProduto!=1 || tipoProduto!=2);
-    return null;
+        }while(tipoProduto!=1 && tipoProduto!=2);
+        
+        Produto novoProduto = tipoProduto == 1 ?
+        new ProdutoFisico(nome, codigo, estoque, precoBase, valorFrete, paginas) :
+        new ProdutoDigital(nome, codigo, estoque, precoBase, mb);
+        if (!novoProduto.validar()) {
+        System.out.println("Erros de validação:");
+        for (String erro : novoProduto.obterMensagensErro()) {
+        System.out.println("- " + erro);
+        }
+        return null;
+        }
+
+        produtos[numProdutos] = novoProduto;
+        return novoProduto;
+    
     }
     //OPCAO 2
     public static void alterarProduto(Produto[]produtos, int numProdutos){
@@ -119,7 +128,6 @@ public class ConsoleMenu {
         // Cadastro dinamio
         if(numClientes == clientes.length){
             Cliente[] aux = new Cliente[numClientes+10];
-            Cliente[] aux = new Cliente[numClientes+10];
             for (int i = 0; i < clientes.length ; i++)
               aux[i]= clientes[i];
             clientes = aux;
@@ -129,10 +137,9 @@ public class ConsoleMenu {
         String nome = InputUtils.getStringInput("Nome: ");
         String endereco = InputUtils.getStringInput("Endereço: ");
         String telefone = InputUtils.getStringInput("Telefone: ");
-        Cliente novocliente;
         String entradaIdentificador;
         String digitoIdentificador;
-        String identificadorFinal;
+        String identificadorFinal="";
 
         //selecionando o codigo
         int flag = 0;
@@ -150,6 +157,7 @@ public class ConsoleMenu {
         String identificadorBase = entradaIdentificador;
 
         //selecionando tipo
+        String documento="";
         int tipoCliente;
         do{
         System.out.println("Tipo de Cliente:");
@@ -161,22 +169,31 @@ public class ConsoleMenu {
             digitoIdentificador = "01-";
             identificadorFinal = digitoIdentificador+identificadorBase;
             System.out.println("ID Final: " + identificadorFinal);
-            String CPF = InputUtils.getStringInput("CPF: ");
-            novocliente = new PessoaFisica(identificadorFinal, nome, endereco, telefone, CPF);
-            clientes[numClientes] = novocliente;
-            return novocliente;
+            documento = InputUtils.getStringInput("CPF: ");
+
         } else if (tipoCliente == 2) {
             digitoIdentificador = "02-";
             identificadorFinal = digitoIdentificador+identificadorBase;
-            String CNPJ = InputUtils.getStringInput("CNPJ: ");
-            novocliente = new PessoaJuridica(identificadorFinal, nome, endereco, telefone, CNPJ);
-            clientes[numClientes] = novocliente;
-            return novocliente;
+            documento = InputUtils.getStringInput("CNPJ: ");
+           
         }else {
             System.out.println("Tipo de produto inválido.");
         }
-        }while(tipoCliente!=1 ||  tipoCliente!=2);
+        }while(tipoCliente!=1 &&  tipoCliente!=2);
+        
+        Cliente novoCliente = tipoCliente == 1 ?
+        new PessoaFisica(identificadorFinal,nome, endereco, telefone, documento):
+        new PessoaJuridica(identificadorFinal, nome, endereco, telefone, documento);
+        if (!novoCliente.validar()) {
+        System.out.println("Erros de validação:");
+        for (String erro : novoCliente.obterMensagensErro()) {
+        System.out.println("- " + erro);
+        }
         return null;
+        }
+
+        clientes[numClientes] = novoCliente;
+        return novoCliente;
     }
     //OPCAO 4
     public static void alterarCliente(Cliente[] clientes, int numClientes){

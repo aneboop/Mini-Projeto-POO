@@ -23,7 +23,7 @@ public class ProdutoFisico extends Produto {
         return this.getPrecoBase().add(this.valorfrete);
     }
     public String exibirDetalhes() {
-        return " Tipo: Físico \nPáginas: " + this.getPaginas() + " \nValor Frete: " + this.getvalorfrete();
+        return "Tipo: Físico \nPáginas: " + this.getPaginas() + " \nValor Frete: " + this.getvalorfrete();
     }
     
 }

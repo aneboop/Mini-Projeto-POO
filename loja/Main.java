@@ -35,9 +35,10 @@ public class Main {
            ConsoleMenu.alterarProduto(produtos, numProdutos);
         }
         else if(opcao == 3){
-           ConsoleMenu.cadastrarCliente(clientes, numClientes);
+           if(ConsoleMenu.cadastrarCliente(clientes, numClientes)!= null){
            numClientes++;
            System.out.println("Cliente cadastrasdo com sucesso");
+           }else System.out.println("Nao foi possivel realizar o cadastro");
         }
         else if(opcao == 4){
            ConsoleMenu.alterarCliente(clientes, numClientes);
